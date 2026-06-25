@@ -1,0 +1,22 @@
+# Orquestación de dos contenedores que comparten el mismo volumen de datos:
+#  - api:     expone la API de monitoreo en el puerto 3000
+#  - watcher: corre los chequeos programados (cron) y escribe los resultados
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PORT=3000
+    restart: unless-stopped
+
+  watcher:
+    build: .
+    command: node src/scheduler.js
+    volumes:
+      - ./data:/app/data
+    environment:
+      - CRON=*/5 * * * *
+    restart: unless-stopped
