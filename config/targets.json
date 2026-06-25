@@ -1,0 +1,7 @@
+{
+  "targets": [
+    { "name": "GitHub", "url": "https://api.github.com" },
+    { "name": "Google", "url": "https://www.google.com" },
+    { "name": "Ejemplo", "url": "https://example.com" }
+  ]
+}
