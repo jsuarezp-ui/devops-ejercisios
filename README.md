@@ -134,6 +134,7 @@ Todo se ajusta por variables de entorno (ver `.env.example`):
 | `PORT` | `3000` | Puerto de la API |
 | `CRON` | `*/5 * * * *` | Frecuencia de los chequeos automáticos |
 | `TIMEOUT_MS` | `5000` | Tiempo máximo de espera por petición |
+| `MAX_REGISTROS` | `1000` | Chequeos que se conservan en el historial |
 | `RETENCION_DIAS` | `7` | Días que se conservan los backups |
 
 Los servicios a vigilar se definen en [`config/targets.json`](config/targets.json).

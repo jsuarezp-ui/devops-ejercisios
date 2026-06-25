@@ -21,6 +21,9 @@ async function checkTarget(target) {
       headers: { 'User-Agent': 'centinela/1.0' },
     });
     const latencyMs = Date.now() - start;
+    // liberamos el cuerpo de la respuesta para no dejar la conexión abierta
+    // (solo nos interesa el estado, no el contenido)
+    await res.body?.cancel().catch(() => {});
     return {
       ...base,
       ok: res.ok,

@@ -13,6 +13,8 @@ const config = {
   intervalCron: process.env.CRON || '*/5 * * * *',
   // cuánto esperar como máximo por cada petición, en milisegundos
   timeoutMs: Number(process.env.TIMEOUT_MS) || 5000,
+  // cuántos chequeos como máximo se conservan en el historial
+  maxRegistros: Number(process.env.MAX_REGISTROS) || 1000,
   dataFile: path.join(ROOT, 'data', 'checks.json'),
   targetsFile: path.join(ROOT, 'config', 'targets.json'),
   root: ROOT,

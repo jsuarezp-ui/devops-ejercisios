@@ -21,12 +21,22 @@ function readChecks() {
   }
 }
 
-// Agrega nuevos resultados al historial y lo guarda en disco.
+// Escribe en disco de forma atómica: primero a un archivo temporal y luego
+// lo renombra. Así un lector nunca alcanza a ver un archivo a medio escribir.
+function writeAtomic(file, contenido) {
+  const tmp = `${file}.tmp`;
+  fs.writeFileSync(tmp, contenido);
+  fs.renameSync(tmp, file);
+}
+
+// Agrega nuevos resultados al historial y lo guarda en disco. Conserva solo
+// los últimos `maxRegistros` para que el archivo no crezca sin control.
 function saveChecks(results) {
   const all = readChecks();
   all.push(...results);
-  fs.writeFileSync(config.dataFile, JSON.stringify(all, null, 2));
-  return all.length;
+  const recientes = all.slice(-config.maxRegistros);
+  writeAtomic(config.dataFile, JSON.stringify(recientes, null, 2));
+  return recientes.length;
 }
 
 // Calcula estadísticas por objetivo: uptime (% de chequeos exitosos) y
